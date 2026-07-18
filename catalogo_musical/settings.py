@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'oauth2_provider',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,5 +135,9 @@ REST_FRAMEWORK = {
         # 'IsAuthenticated' significa que SOLO las personas que tengan 
         # un token válido podrán hacer peticiones (CRUD)
         'rest_framework.permissions.IsAuthenticated',
+
+        
     )
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
