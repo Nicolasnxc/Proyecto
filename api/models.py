@@ -14,6 +14,9 @@ class Artista(models.Model):
     # 'blank=True' indica que este campo es opcional y puede dejarse vacío en los formularios.
     biografia = models.TextField(blank=True)
 
+    foto = models.ImageField(upload_to='artistas/', null=True, blank=True)
+    # (upload_to crea una subcarpeta automáticamente. null=True y blank=True permiten que la foto sea opcional por si acaso).
+
     # El método especial __str__ define la representación en forma de cadena del objeto.
     # Gracias a esto, en el panel de administración de Django verás el nombre del 
     # artista en lugar de algo genérico como "Artista object (1)".
@@ -28,6 +31,8 @@ class Album(models.Model):
     
     # 'fecha_lanzamiento' es un campo que solo almacena fechas (año, mes, día).
     fecha_lanzamiento = models.DateField()
+
+    portada = models.ImageField(upload_to='albumes/', null=True, blank=True)
     
     # Esta es la línea clave que crea la relación "Uno a Muchos" (Un artista -> Muchos álbumes).
     # - ForeignKey: Establece que este campo es una clave foránea hacia el modelo 'Artista'.
@@ -41,3 +46,5 @@ class Album(models.Model):
     # seguido de un guion y el nombre del artista asociado.
     def __str__(self):
         return f"{self.titulo} - {self.artista.nombre}"
+    
+    

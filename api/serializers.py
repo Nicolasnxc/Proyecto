@@ -1,29 +1,41 @@
-# Primero, traemos la herramienta de Django REST Framework que hace las traducciones
+# 1. TRAEMOS LAS HERRAMIENTAS
+# Importamos la herramienta 'serializers' desde la librería de Django REST Framework.
+# Esta es la "máquina" que sabe cómo hacer la traducción de Python a JSON y viceversa.
 from rest_framework import serializers
 
-# Luego, importamos nuestros modelos Artista y Album desde el archivo models.py
-# El punto (.) antes de models significa "en esta misma carpeta"
+# Importamos nuestros "moldes" (modelos) Artista y Album desde el archivo models.py.
+# El punto (.) antes de models es muy importante: le dice a Python "busca el archivo models.py 
+# exactamente en la misma carpeta donde estamos parados ahora mismo".
 from .models import Artista, Album
 
-# Creamos el traductor para la tabla Artista
+
+# 2. CREAMOS EL TRADUCTOR PARA EL ARTISTA
+# Creamos una clase llamada ArtistaSerializer. Al poner (serializers.ModelSerializer) entre paréntesis, 
+# le estamos diciendo a Django: "Quiero que uses tu traductor automático para modelos". 
+# Esto nos ahorra tener que escribir a mano cada línea que queremos traducir.
 class ArtistaSerializer(serializers.ModelSerializer):
     
-    # La clase Meta es como las "configuraciones" de nuestro traductor
+    # La clase 'Meta' funciona como el panel de control o menú de configuraciones de ESTE traductor.
+    # Aquí es donde le damos las instrucciones exactas de qué y cómo traducir.
     class Meta:
-        # Aquí le decimos: "Oye, quiero que traduzcas la información del modelo Artista"
+        # Instrucción 1: "Oye traductor, la información que vas a leer viene del modelo Artista".
         model = Artista
         
-        # Con '__all__' le decimos: "Por favor, traduce absolutamente todos los campos 
-        # que creamos en models.py (el id, nombre, genero, biografia)"
+        # Instrucción 2: "Quiero que empaquetes y traduzcas TODOS los campos".
+        # '__all__' es una palabra mágica que incluye: nombre, genero, biografia y también 
+        # el 'id' (el número único oculto que Django le da a cada artista automáticamente).
         fields = '__all__'
 
 
-# Hacemos exactamente lo mismo para la tabla Album
+# 3. CREAMOS EL TRADUCTOR PARA EL ÁLBUM
+# Hacemos exactamente el mismo proceso, pero ahora diseñado para los discos.
 class AlbumSerializer(serializers.ModelSerializer):
     
     class Meta:
-        # Aquí le decimos que el modelo a traducir es Album
+        # Le decimos que este traductor específico solo se encargará del modelo Album.
         model = Album
         
-        # Y también queremos que traduzca todos los campos (titulo, fecha, etc.)
+        # Le pedimos que traduzca todos los campos. ¡Ojo aquí! Como pusimos '__all__', 
+        # este traductor también va a incluir el campo de la clave foránea (el artista dueño del álbum),
+        # mostrándolo generalmente como el número de 'id' del artista.
         fields = '__all__'
