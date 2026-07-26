@@ -29,8 +29,9 @@ class Album(models.Model):
     # Título del álbum, limitado a 150 caracteres.
     titulo = models.CharField(max_length=150)
     
-    # 'fecha_lanzamiento' es un campo que solo almacena fechas (año, mes, día).
-    fecha_lanzamiento = models.DateField()
+    # CORRECCIÓN AQUÍ: Agregamos null=True y blank=True para que permita registros sin fecha 
+    # y solucione el error de "non-nullable field" en la base de datos.
+    fecha_lanzamiento = models.DateField(null=True, blank=True)
 
     portada = models.ImageField(upload_to='albumes/', null=True, blank=True)
     
@@ -46,5 +47,3 @@ class Album(models.Model):
     # seguido de un guion y el nombre del artista asociado.
     def __str__(self):
         return f"{self.titulo} - {self.artista.nombre}"
-    
-    
