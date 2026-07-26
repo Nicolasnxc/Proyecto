@@ -3,12 +3,16 @@
 from rest_framework import viewsets
 
 # Traemos nuestros modelos (las tablas de la base de datos)
-# El punto (.) significa "búscalo en esta misma carpeta"
-from .models import Artista, Album
+# AQUÍ ESTÁ LA CORRECCIÓN: Agregamos CancionRadio a la lista activa de importaciones
+from .models import Artista, Album, CancionRadio
 
 # Traemos los traductores que hicimos en el paso anterior
-from .serializers import ArtistaSerializer, AlbumSerializer
+# AQUÍ ESTÁ LA CORRECCIÓN: Agregamos CancionRadioSerializer a la lista
+from .serializers import ArtistaSerializer, AlbumSerializer, CancionRadioSerializer
 
+# ==========================================
+# 1. VISTA PARA ARTISTAS
+# ==========================================
 # Creamos la "vista" (el mesero) para los Artistas. 
 # Al ponerle '(viewsets.ModelViewSet)', le damos los poderes del CRUD automático.
 class ArtistaViewSet(viewsets.ModelViewSet):
@@ -22,6 +26,9 @@ class ArtistaViewSet(viewsets.ModelViewSet):
     serializer_class = ArtistaSerializer
 
 
+# ==========================================
+# 2. VISTA PARA ÁLBUMES
+# ==========================================
 # Hacemos exactamente lo mismo para la tabla de Álbumes
 class AlbumViewSet(viewsets.ModelViewSet):
     
@@ -30,3 +37,12 @@ class AlbumViewSet(viewsets.ModelViewSet):
     
     # Le asignamos su traductor correspondiente de álbumes
     serializer_class = AlbumSerializer
+
+
+# ==========================================
+# 3. NUEVA VISTA PARA LA RADIO
+# ==========================================
+# Igual de independiente y alineada a la izquierda que las otras dos.
+class CancionRadioViewSet(viewsets.ModelViewSet):
+    queryset = CancionRadio.objects.all()
+    serializer_class = CancionRadioSerializer

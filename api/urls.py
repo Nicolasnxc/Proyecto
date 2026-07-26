@@ -1,6 +1,9 @@
 # Importamos las herramientas de Django para crear las rutas de internet
 from django.urls import path, include
 
+from django.conf import settings        
+
+from django.conf.urls.static import static
 # Importamos un 'Router'. Es como un mapa inteligente.
 # En lugar de escribir nosotros la ruta de Crear, la de Borrar, la de Editar...
 # el Router las crea todas automáticamente por nosotros.
@@ -18,6 +21,9 @@ router.register(r'artistas', views.ArtistaViewSet)
 
 # Si alguien entra a la ruta '/albumes', lo atiende el AlbumViewSet
 router.register(r'albumes', views.AlbumViewSet)
+
+# Solo tienes que agregar esta línea debajo de las que ya tienes:
+router.register(r'radio', views.CancionRadioViewSet)
 
 # Aquí armamos la lista final de direcciones de nuestra aplicación
 urlpatterns = [

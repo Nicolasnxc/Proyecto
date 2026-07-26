@@ -47,3 +47,15 @@ class Album(models.Model):
     # seguido de un guion y el nombre del artista asociado.
     def __str__(self):
         return f"{self.titulo} - {self.artista.nombre}"
+
+
+# NUEVA TABLA PARA LA RADIO
+# Fíjate que está pegada al borde izquierdo, totalmente separada de Album.
+class CancionRadio(models.Model):
+    titulo = models.CharField(max_length=200)
+    artista = models.CharField(max_length=200, default="MeloVerse Stream")
+    # FileField es especial para subir audios, PDFs, videos, etc.
+    archivo_audio = models.FileField(upload_to='musica_radio/') 
+    
+    def __str__(self):
+        return f"{self.titulo} - {self.artista}"
