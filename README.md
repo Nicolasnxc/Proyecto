@@ -408,4 +408,4 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:5173']  # Producción
 
 ---
 
-**Autor:** Matthew Constante
+**Autor:** Nicolás Diaz
