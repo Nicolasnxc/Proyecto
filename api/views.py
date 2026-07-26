@@ -2,6 +2,7 @@
 # Es como una plantilla mágica que ya sabe cómo Crear, Leer, Editar y Borrar.
 from rest_framework import viewsets
 
+from rest_framework.permissions import AllowAny 
 # Traemos nuestros modelos (las tablas de la base de datos)
 # AQUÍ ESTÁ LA CORRECCIÓN: Agregamos CancionRadio a la lista activa de importaciones
 from .models import Artista, Album, CancionRadio
@@ -46,3 +47,4 @@ class AlbumViewSet(viewsets.ModelViewSet):
 class CancionRadioViewSet(viewsets.ModelViewSet):
     queryset = CancionRadio.objects.all()
     serializer_class = CancionRadioSerializer
+    permission_classes = [AllowAny]  
